@@ -29,10 +29,10 @@ SVFR is a unified framework for face video restoration that supports tasks such 
 </div> -->
 
 
-<div style="display: flex; gap: 10px;">
+<!-- <div style="display: flex; gap: 10px;">
   <video src="https://github.com/user-attachments/assets/49f985f3-a2db-4b9f-aed0-e9943bae9c17" controls width=45%></video>
   <video src="https://github.com/user-attachments/assets/8fcd1dd9-79d3-4e57-b98e-a80ae2badfb5" controls width="45%"></video>
-</div>
+</div> -->
 
 | Case1                                                                                                                        | Case2                                                                                                                        |
 |--------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
@@ -65,10 +65,13 @@ https://github.com/user-attachments/assets/8fcd1dd9-79d3-4e57-b98e-a80ae2badfb5 
 </div> -->
 
 
-https://github.com/user-attachments/assets/795f4cb1-a7c9-41c5-9486-26e64a96bcf0
+<!-- https://github.com/user-attachments/assets/795f4cb1-a7c9-41c5-9486-26e64a96bcf0
 
-https://github.com/user-attachments/assets/6ccf2267-30be-4553-9ecc-f3e7e0ca1d6f
+https://github.com/user-attachments/assets/6ccf2267-30be-4553-9ecc-f3e7e0ca1d6f -->
 
+| Case3                                                                                                                        | Case4                                                                                                                        |
+|--------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+|<video src="https://github.com/user-attachments/assets/795f4cb1-a7c9-41c5-9486-26e64a96bcf0" /> | <video src="https://github.com/user-attachments/assets/6ccf2267-30be-4553-9ecc-f3e7e0ca1d6f" /> |
 
 
 ### BFR+Colorization+Inpainting
@@ -86,10 +89,15 @@ https://github.com/user-attachments/assets/6ccf2267-30be-4553-9ecc-f3e7e0ca1d6f
 
 
 
-https://github.com/user-attachments/assets/6113819f-142b-4faa-b1c3-a2b669fd0786
+<!-- https://github.com/user-attachments/assets/6113819f-142b-4faa-b1c3-a2b669fd0786
 
 https://github.com/user-attachments/assets/efdac23c-0ba5-4dad-ab8c-48904af5dd89
+ -->
 
+
+| Case3                                                                                                                        | Case4                                                                                                                        |
+|--------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+|<video src="https://github.com/user-attachments/assets/6113819f-142b-4faa-b1c3-a2b669fd0786 /> | <video src="https://github.com/user-attachments/assets/efdac23c-0ba5-4dad-ab8c-48904af5dd89" /> |
 
 
 ## 🎙️ News
