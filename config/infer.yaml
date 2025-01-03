@@ -1,0 +1,21 @@
+data:
+  n_sample_frames: 16
+  width: 512
+  height: 512
+
+pretrained_model_name_or_path: "models/stable-video-diffusion-img2vid-xt"
+unet_checkpoint_path: "models/face_restoration/unet.pth"
+id_linear_checkpoint_path: "models/face_restoration/id_linear.pth"
+net_arcface_checkpoint_path: "models/face_restoration/insightface_glint360k.pth"
+# output_dir: 'result' 
+
+
+# test config
+weight_dtype: 'fp16'
+num_inference_steps: 30
+decode_chunk_size: 16
+overlap: 3
+noise_aug_strength: 0.00
+min_appearance_guidance_scale: 2.0
+max_appearance_guidance_scale: 2.0
+i2i_noise_strength: 1.0

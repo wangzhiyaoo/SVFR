@@ -1,0 +1,10 @@
+accelerate
+decord
+diffusers
+einops
+moviepy==1.0.3
+numpy<2.0
+omegaconf
+opencv-python
+scikit-video
+transformers

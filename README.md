@@ -1,5 +1,149 @@
-# SVFR: A Unified Framework for Generalized Video Face Restoration
+<!-- # SVFR: A Unified Framework for Generalized Video Face Restoration -->
+
+<div>
+<h1>SVFR: A Unified Framework for Generalized Video Face Restoration</h1>
+</div>
 
 [![Project Page](https://img.shields.io/badge/Project-Website-green)](https://wangzhiyaoo.github.io/SVFR/)
 
-The code will comming soon!
+## 🔥 Overview
+
+SVFR is a unified framework for face video restoration that supports tasks such as **BFR, Colorization, Inpainting**, and **their combinations** within one cohesive system.
+
+<img src="assert/method.png">
+
+## 🎬 Demo
+
+### BFR
+
+<div style="display: flex; gap: 15px;">
+  <video controls width="420">
+    <source src="https://wangzhiyaoo.github.io/SVFR/static/videos/wild-test/case1_bfr.mp4" type="video/mp4">
+    
+  </video>
+  
+  <video controls width="420">
+    <source src="https://wangzhiyaoo.github.io/SVFR/static/videos/wild-test/case4_bfr.mp4" type="video/mp4">
+    
+  </video>
+</div>
+
+### BFR+Colorization
+<div style="display: flex; gap: 15px;">
+  <video controls width="420">
+    <source src="https://wangzhiyaoo.github.io/SVFR/static/videos/wild-test/case10_bfr_colorization.mp4" type="video/mp4">
+    
+  </video>
+  
+  <video controls width="420">
+    <source src="https://wangzhiyaoo.github.io/SVFR/static/videos/wild-test/case12_bfr_colorization.mp4" type="video/mp4">
+    
+  </video>
+</div>
+
+### BFR+Colorization+Inpainting
+<div style="display: flex; gap: 15px;">
+  <video controls width="420">
+    <source src="https://wangzhiyaoo.github.io/SVFR/static/videos/wild-test/case14_bfr+colorization+inpainting.mp4" type="video/mp4">
+    
+  </video>
+  
+  <video controls width="420">
+    <source src="https://wangzhiyaoo.github.io/SVFR/static/videos/wild-test/case15_bfr+colorization+inpainting.mp4" type="video/mp4">
+    
+  </video>
+</div>
+
+
+## 🎙️ News
+
+- **[2025.01.02]**: We released the initial version of the [inference code](#inference) and [models](#download-checkpoints). Stay tuned for continuous updates!
+- **[2024.12.17]**: This repo is created!
+
+## 🚀 Getting Started
+
+## Setup
+
+Use the following command to install a conda environment for SVFR from scratch:
+
+```bash
+conda create -n svfr python=3.9 -y
+conda activate svfr
+```
+
+Install PyTorch:  make sure to select the appropriate CUDA version based on your hardware, for example,
+
+```bash
+pip install torch==2.2.2 torchvision==0.17.2 torchaudio==2.2.2
+```
+
+Install Dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Download checkpoints
+
+<li>Download the Stable Video Diffusion</li>
+
+```
+conda install git-lfs
+git lfs install
+git clone https://huggingface.co/stabilityai/stable-video-diffusion-img2vid-xt models/stable-video-diffusion-img2vid-xt
+```
+
+<li>Download SVFR</li>
+
+You can download checkpoints manually through link on [Google Drive](https://drive.google.com/drive/folders/1nzy9Vk-yA_DwXm1Pm4dyE2o0r7V6_5mn?usp=share_link).
+
+Put checkpoints as follows:
+
+```
+└── models
+    ├── face_align
+    │   ├── yoloface_v5m.pt
+    ├── face_restoration
+    │   ├── unet.pth
+    │   ├── id_linear.pth
+    │   ├── insightface_glint360k.pth
+    └── stable-video-diffusion-img2vid-xt
+        ├── vae
+        ├── scheduler
+        └── ...
+```
+
+## Inference
+
+### Inference single or multi task
+
+```
+python3 infer.py \
+ --config config/infer.yaml \
+ --task_ids 0 \
+ --input_path ./assert/lq/lq1.mp4 \
+ --output_dir ./results/ 
+```
+
+<li>task_id:</li>
+
+> 0 -- bfr  
+> 1 -- colorization  
+> 2 -- inpainting  
+> 0,1 -- bfr and colorization  
+> 0,1,2 -- bfr and colorization and inpainting  
+> ...
+
+### Inference with additional inpainting mask
+
+```
+# For Inference with Inpainting
+# Add '--mask_path' if you need to specify the mask file.
+
+python3 infer.py \
+ --config config/infer.yaml \
+ --task_ids 0,1,2 \
+ --input_path ./assert/lq/lq3.mp4 \
+ --output_dir ./results/ 
+ --mask_path ./assert/mask/lq3.png
+```
