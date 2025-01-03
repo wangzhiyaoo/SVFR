@@ -32,6 +32,7 @@ SVFR is a unified framework for face video restoration that supports tasks such 
 
 
 https://github.com/user-attachments/assets/49f985f3-a2db-4b9f-aed0-e9943bae9c17
+
 https://github.com/user-attachments/assets/8fcd1dd9-79d3-4e57-b98e-a80ae2badfb5
 
 
@@ -51,6 +52,7 @@ https://github.com/user-attachments/assets/8fcd1dd9-79d3-4e57-b98e-a80ae2badfb5
 
 
 https://github.com/user-attachments/assets/795f4cb1-a7c9-41c5-9486-26e64a96bcf0
+
 https://github.com/user-attachments/assets/6ccf2267-30be-4553-9ecc-f3e7e0ca1d6f
 
 
@@ -71,6 +73,7 @@ https://github.com/user-attachments/assets/6ccf2267-30be-4553-9ecc-f3e7e0ca1d6f
 
 
 https://github.com/user-attachments/assets/6113819f-142b-4faa-b1c3-a2b669fd0786
+
 https://github.com/user-attachments/assets/efdac23c-0ba5-4dad-ab8c-48904af5dd89
 
 
