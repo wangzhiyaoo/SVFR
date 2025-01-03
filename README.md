@@ -16,39 +16,39 @@ SVFR is a unified framework for face video restoration that supports tasks such 
 
 ### BFR
 
-<div style="display: flex; gap: 15px;">
-  <video controls width="420">
+<div style="display: flex; gap: 10px;">
+  <video controls width="360">
     <source src="https://wangzhiyaoo.github.io/SVFR/static/videos/wild-test/case1_bfr.mp4" type="video/mp4">
     
   </video>
   
-  <video controls width="420">
+  <video controls width="360">
     <source src="https://wangzhiyaoo.github.io/SVFR/static/videos/wild-test/case4_bfr.mp4" type="video/mp4">
     
   </video>
 </div>
 
 ### BFR+Colorization
-<div style="display: flex; gap: 15px;">
-  <video controls width="420">
+<div style="display: flex; gap: 10px;">
+  <video controls width="360">
     <source src="https://wangzhiyaoo.github.io/SVFR/static/videos/wild-test/case10_bfr_colorization.mp4" type="video/mp4">
     
   </video>
   
-  <video controls width="420">
+  <video controls width="360">
     <source src="https://wangzhiyaoo.github.io/SVFR/static/videos/wild-test/case12_bfr_colorization.mp4" type="video/mp4">
     
   </video>
 </div>
 
 ### BFR+Colorization+Inpainting
-<div style="display: flex; gap: 15px;">
-  <video controls width="420">
+<div style="display: flex; gap: 10px;">
+  <video controls width="360">
     <source src="https://wangzhiyaoo.github.io/SVFR/static/videos/wild-test/case14_bfr+colorization+inpainting.mp4" type="video/mp4">
     
   </video>
   
-  <video controls width="420">
+  <video controls width="360">
     <source src="https://wangzhiyaoo.github.io/SVFR/static/videos/wild-test/case15_bfr+colorization+inpainting.mp4" type="video/mp4">
     
   </video>
