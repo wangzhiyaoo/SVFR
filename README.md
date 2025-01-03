@@ -30,11 +30,11 @@ SVFR is a unified framework for face video restoration that supports tasks such 
 
 <!-- <video src="https://wangzhiyaoo.github.io/SVFR/bfr"> -->
 
-
+<div style="display: flex; gap: 10px;">
 https://github.com/user-attachments/assets/49f985f3-a2db-4b9f-aed0-e9943bae9c17
 
 https://github.com/user-attachments/assets/8fcd1dd9-79d3-4e57-b98e-a80ae2badfb5
-
+</div>
 
 
 ### BFR+Colorization
