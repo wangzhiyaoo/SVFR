@@ -34,13 +34,8 @@ SVFR is a unified framework for face video restoration that supports tasks such 
 https://github.com/user-attachments/assets/49f985f3-a2db-4b9f-aed0-e9943bae9c17
 
 
-
-<video src="https://wangzhiyaoo.github.io/SVFR/static/videos/wild-test/case1_bfr.mp4" autoplay="true" controls="controls" width="360">
-</video>
-
-
 ### BFR+Colorization
-<div style="display: flex; gap: 10px;">
+<!-- <div style="display: flex; gap: 10px;">
   <video controls width="360">
     <source src="https://wangzhiyaoo.github.io/SVFR/static/videos/wild-test/case10_bfr_colorization.mp4" type="video/mp4">
     
@@ -50,10 +45,10 @@ https://github.com/user-attachments/assets/49f985f3-a2db-4b9f-aed0-e9943bae9c17
     <source src="https://wangzhiyaoo.github.io/SVFR/static/videos/wild-test/case12_bfr_colorization.mp4" type="video/mp4">
     
   </video>
-</div>
+</div> -->
 
 ### BFR+Colorization+Inpainting
-<div style="display: flex; gap: 10px;">
+<!-- <div style="display: flex; gap: 10px;">
   <video controls width="360">
     <source src="https://wangzhiyaoo.github.io/SVFR/static/videos/wild-test/case14_bfr+colorization+inpainting.mp4" type="video/mp4">
     
@@ -63,7 +58,7 @@ https://github.com/user-attachments/assets/49f985f3-a2db-4b9f-aed0-e9943bae9c17
     <source src="https://wangzhiyaoo.github.io/SVFR/static/videos/wild-test/case15_bfr+colorization+inpainting.mp4" type="video/mp4">
     
   </video>
-</div>
+</div> -->
 
 
 ## 🎙️ News
