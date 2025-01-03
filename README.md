@@ -4,6 +4,7 @@
 <h1>SVFR: A Unified Framework for Generalized Video Face Restoration</h1>
 </div>
 
+[![arXiv](https://img.shields.io/badge/arXiv-2307.04725-b31b1b.svg)](https://arxiv.org/pdf/2501.01235)
 [![Project Page](https://img.shields.io/badge/Project-Website-green)](https://wangzhiyaoo.github.io/SVFR/)
 
 ## 🔥 Overview
