@@ -192,3 +192,17 @@ python3 infer.py \
  --output_dir ./results/ 
  --mask_path ./assert/mask/lq3.png
 ```
+
+
+## BibTex
+```
+@misc{wang2025svfrunifiedframeworkgeneralized,
+      title={SVFR: A Unified Framework for Generalized Video Face Restoration}, 
+      author={Zhiyao Wang and Xu Chen and Chengming Xu and Junwei Zhu and Xiaobin Hu and Jiangning Zhang and Chengjie Wang and Yuqi Liu and Yiyi Zhou and Rongrong Ji},
+      year={2025},
+      eprint={2501.01235},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2501.01235}, 
+}
+```
