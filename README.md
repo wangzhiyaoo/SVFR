@@ -15,7 +15,7 @@ SVFR is a unified framework for face video restoration that supports tasks such 
 ## 🎬 Demo
 
 ### BFR
-
+<!-- 
 <div style="display: flex; gap: 10px;">
   <video controls width="360">
     <source src="https://wangzhiyaoo.github.io/SVFR/static/videos/wild-test/case1_bfr.mp4" type="video/mp4">
@@ -26,7 +26,13 @@ SVFR is a unified framework for face video restoration that supports tasks such 
     <source src="https://wangzhiyaoo.github.io/SVFR/static/videos/wild-test/case4_bfr.mp4" type="video/mp4">
     
   </video>
-</div>
+</div> -->
+
+<!-- <video src="https://wangzhiyaoo.github.io/SVFR/bfr"> -->
+
+<video src="https://wangzhiyaoo.github.io/SVFR/static/videos/wild-test/case1_bfr.mp4" autoplay="true" controls="controls" width="360">
+</video>
+
 
 ### BFR+Colorization
 <div style="display: flex; gap: 10px;">
