@@ -6,6 +6,7 @@
 
 [![arXiv](https://img.shields.io/badge/arXiv-2307.04725-b31b1b.svg)](https://arxiv.org/pdf/2501.01235)
 [![Project Page](https://img.shields.io/badge/Project-Website-green)](https://wangzhiyaoo.github.io/SVFR/)
+[![Replicate](https://replicate.com/zsxkib/stable-video-face-restoration/badge)](https://replicate.com/zsxkib/stable-video-face-restoration)
 
 ## 🔥 Overview
 
