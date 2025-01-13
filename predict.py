@@ -6,11 +6,8 @@ import subprocess
 import time
 from cog import BasePredictor, Input, Path
 from argparse import Namespace
-from typing import List
 
-import torch
 from omegaconf import OmegaConf
-import gdown  # Add gdown to requirements.txt
 
 from infer import main
 
@@ -55,7 +52,6 @@ class Predictor(BasePredictor):
         """
         Load models and prepare environment on startup
         """
-        import gdown
 
         # 1. Load config
         config_path = "./config/infer.yaml"
@@ -63,65 +59,17 @@ class Predictor(BasePredictor):
             raise FileNotFoundError(f"Config file not found at {config_path}")
         self.config = OmegaConf.load(config_path)
 
-        try:
-            # Add download logic at the start of setup
-            for model_file in MODEL_FILES:
-                url = f"{WEIGHTS_BASE_URL}/{MODEL_CACHE}/{model_file}"
-                dest_path = f"{MODEL_CACHE}/{model_file}"
+        # Add download logic at the start of setup
+        for model_file in MODEL_FILES:
+            url = f"{WEIGHTS_BASE_URL}/{MODEL_CACHE}/{model_file}"
+            dest_path = f"{MODEL_CACHE}/{model_file}"
 
-                dir_name = dest_path.replace(".tar", "")
-                if os.path.exists(dir_name):
-                    print(f"[+] Directory {dir_name} already exists, skipping download")
-                    continue
+            dir_name = dest_path.replace(".tar", "")
+            if os.path.exists(dir_name):
+                print(f"[+] Directory {dir_name} already exists, skipping download")
+                continue
 
-                download_weights(url, dest_path)
-        except (Exception, KeyboardInterrupt) as e:
-            print(f"[ERROR] Failed to download weights: {e}")
-            # raise  # Re-raise the exception to properly handle interrupts
-
-            # 2. Create model directories
-            models_dir = "./models"
-            os.makedirs(f"{models_dir}/face_align", exist_ok=True)
-            os.makedirs(f"{models_dir}/face_restoration", exist_ok=True)
-
-            # 3. Download SVFR models (from Google Drive)
-            gdrive_url = "https://drive.google.com/drive/folders/1nzy9Vk-yA_DwXm1Pm4dyE2o0r7V6_5mn"
-            model_files = {
-                f"{models_dir}/face_align/yoloface_v5m.pt": "Face detection model (YOLO)",
-                f"{models_dir}/face_restoration/unet.pth": "UNet restoration model",
-                f"{models_dir}/face_restoration/id_linear.pth": "ID projection model",
-                f"{models_dir}/face_restoration/insightface_glint360k.pth": "InsightFace model",
-            }
-
-            # NOTE: models/stable-video-diffusion-img2vid-xt is gotten via git lfs (see readme)
-
-            missing_files = []
-            for file_path, description in model_files.items():
-                if not os.path.exists(file_path):
-                    print(f"Downloading {description}...")
-                    try:
-                        # Download the entire folder once
-                        if not hasattr(self, "_gdrive_downloaded"):
-                            gdown.download_folder(
-                                gdrive_url, output=models_dir, quiet=False
-                            )
-                            self._gdrive_downloaded = True
-                            break
-                    except Exception as e:
-                        missing_files.append(f"• {description} ({file_path}): {str(e)}")
-
-            # 4. Verify all required files exist
-            missing_files = []
-            for file_path, description in model_files.items():
-                if not os.path.exists(file_path):
-                    missing_files.append(f"• {description} ({file_path})")
-
-            if missing_files:
-                raise FileNotFoundError(
-                    "Missing required model files:\n"
-                    + "\n".join(missing_files)
-                    + "\nPlease ensure you have access to the Google Drive folder and try again."
-                )
+            download_weights(url, dest_path)
 
     def predict(
         self,

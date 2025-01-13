@@ -17,7 +17,6 @@ __pycache__
 /venv
 
 # Replicate
-# TODO: CHNAGE THIS WHEN PGET FIXED
-# /models
-# /models_OLD
+/models
+/models_OLD
 /output
