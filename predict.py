@@ -73,9 +73,7 @@ class Predictor(BasePredictor):
 
     def predict(
         self,
-        video: Path = Input(
-            description="Input video file that will be enhanced, supporting common formats like MP4.",
-        ),
+        video: Path = Input(description="Input video file (e.g. MP4)."),
         tasks: str = Input(
             choices=[
                 "face-restoration",
@@ -83,23 +81,56 @@ class Predictor(BasePredictor):
                 "face-restoration-and-colorization-and-inpainting",
             ],
             default="face-restoration",
-            description="Select which restoration tasks to apply, where face-restoration enhances facial details only, face-restoration-and-colorization enhances faces and restores colors, and face-restoration-and-colorization-and-inpainting provides the full pipeline requiring a mask input.",
+            description="Which restoration tasks to apply.",
         ),
         mask: Path = Input(
             default=None,
-            description="An inpainting mask image where white areas indicate regions that will be restored, which is only required when using the full pipeline with inpainting.",
+            description="An inpainting mask image (white areas will be restored). Only required when tasks includes inpainting.",
+        ),
+        # Below are the overrides matching default values in infer.yaml
+        num_inference_steps: int = Input(
+            default=30, description="Number of diffusion steps."
+        ),
+        decode_chunk_size: int = Input(
+            default=16, description="Chunk size for decoding long videos."
+        ),
+        overlap: int = Input(
+            default=3, description="Number of overlapping frames between segments."
+        ),
+        noise_aug_strength: float = Input(
+            default=0.0, description="Noise augmentation strength."
+        ),
+        min_appearance_guidance_scale: float = Input(
+            default=2.0, description="Minimum guidance scale for restoration."
+        ),
+        max_appearance_guidance_scale: float = Input(
+            default=2.0, description="Maximum guidance scale for restoration."
+        ),
+        i2i_noise_strength: float = Input(
+            default=1.0, description="Image-to-image noise strength."
         ),
         seed: int = Input(
-            description="Random seed. Use -1 to randomize the seed", default=-1
+            default=None, description="Random seed. Leave blank to randomize."
         ),
     ) -> Path:
-        """Run face restoration pipeline with selected enhancements"""
+        """Run face restoration pipeline with the selected enhancements."""
 
-        if seed == -1:
+        # Handle random seed
+        if seed == -1 or seed is None:
             seed = int.from_bytes(os.urandom(2), "big")
         print(f"Using seed: {seed}")
 
-        # Convert friendly task names to the task IDs that infer.py expects
+        # If a user-supplied value differs from None (or the original code used None),
+        # here we always override self.config with the new value.
+        self.config.num_inference_steps = num_inference_steps
+        self.config.decode_chunk_size = decode_chunk_size
+        self.config.overlap = overlap
+        self.config.noise_aug_strength = noise_aug_strength
+        self.config.min_appearance_guidance_scale = min_appearance_guidance_scale
+        self.config.max_appearance_guidance_scale = max_appearance_guidance_scale
+        self.config.i2i_noise_strength = i2i_noise_strength
+
+        # Convert REST-friendly tasks into internal numeric IDs
         task_map = {
             "face-restoration": [0],
             "face-restoration-and-colorization": [0, 1],
@@ -107,18 +138,16 @@ class Predictor(BasePredictor):
         }
         task_ids = task_map[tasks]
 
-        # Validate inpainting
+        # If the user picks the inpainting task, enforce that they supply a mask
         if "face-restoration-and-colorization-and-inpainting" == tasks and mask is None:
             raise ValueError(
-                "When using the full pipeline with inpainting, you must provide a mask image. "
-                "The mask should be black & white where white pixels indicate areas to restore."
+                "For inpainting, a mask image must be provided. (White areas are restored.)"
             )
 
-        # Create output directory
         output_dir = "./output"
         os.makedirs(output_dir, exist_ok=True)
 
-        # Run pipeline
+        # Build the arguments that get passed to infer.py
         args = Namespace(
             config="./config/infer.yaml",
             output_dir=output_dir,
@@ -126,12 +155,12 @@ class Predictor(BasePredictor):
             task_ids=task_ids,
             input_path=str(video),
             mask_path=str(mask) if mask else None,
-            restore_frames=False,
+            restore_frames=False,  # change to True if storing frames
         )
 
         main(self.config, args)
 
-        # Build output path
+        # Construct final output path
         base_name = os.path.splitext(os.path.basename(str(video)))[0]
         out_path = os.path.join(output_dir, f"{base_name}_{seed}.mp4")
 
