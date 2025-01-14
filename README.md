@@ -108,6 +108,8 @@ https://github.com/user-attachments/assets/efdac23c-0ba5-4dad-ab8c-48904af5dd89
 
 ## 🚀 Getting Started
 
+> Note: It is recommended to use a GPU with 16GB or more VRAM.
+
 ## Setup
 
 Use the following command to install a conda environment for SVFR from scratch:
