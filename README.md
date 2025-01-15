@@ -202,6 +202,10 @@ The code of SVFR is released under the MIT License. There is no limitation for b
 
 **The pretrained models we provided with this library are available for non-commercial research purposes only, including both auto-downloading models and manual-downloading models.**
 
+## Acknowledgments
+
+This work is built on the architecture of [Sonic](https://github.com/jixiaozhong/Sonic).
+
 
 ## BibTex
 ```
