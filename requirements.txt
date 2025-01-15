@@ -8,3 +8,4 @@ omegaconf
 opencv-python
 scikit-video
 transformers
+gradio
