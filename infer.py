@@ -204,6 +204,9 @@ def main(config,args):
         imSameID = Image.fromarray(frame)
         imSameID = crop_resize_img(imSameID, bbox_s)
         imSameID = imSameID.resize((512,512))
+        if 1 in task_ids:
+            imSameID = imSameID.convert("L")  # Convert to grayscale
+            imSameID = imSameID.convert("RGB")
         image_array = np.array(imSameID)
         if 2 in task_ids and args.mask_path is not None:
             image_array[white_positions] = [255, 255, 255] # mask for inpainting task
