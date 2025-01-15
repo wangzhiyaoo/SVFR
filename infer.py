@@ -33,9 +33,10 @@ warnings.filterwarnings("ignore")
 
 import decord
 import cv2
-from src.dataset.dataset import get_affine_transform, mean_face_lm5p_256
+from src.dataset.dataset import get_affine_transform, mean_face_lm5p_256, get_union_bbox, process_bbox, crop_resize_img
 
 BASE_DIR = '.'
+
 
 def main(config,args):
     if 'CUDA_VISIBLE_DEVICES' in os.environ:
@@ -179,12 +180,29 @@ def main(config,args):
     drive_idx_list = list(range(drive_idx_start, drive_idx_start + T * step, step))
     assert len(drive_idx_list) == T
 
+    # Crop faces from the video for further processing
+    bbox_list = []
+    frame_interval = 5
+    for frame_count, drive_idx in enumerate(drive_idx_list):
+        if frame_count % frame_interval != 0:
+            continue  
+        frame = cap[drive_idx].asnumpy()
+        _, _, bboxes_list = align_instance(frame[:,:,[2,1,0]], maxface=True)
+        if bboxes_list==[]:
+            continue
+        x1, y1, ww, hh = bboxes_list[0]
+        x2, y2 = x1 + ww, y1 + hh
+        bbox = [x1, y1, x2, y2]
+        bbox_list.append(bbox)
+    bbox = get_union_bbox(bbox_list)
+    bbox_s = process_bbox(bbox, expand_radio=0.4, height=frame.shape[0], width=frame.shape[1])
+
     imSameIDs = []
     vid_gt = []
     for i, drive_idx in enumerate(drive_idx_list):
         frame = cap[drive_idx].asnumpy()
         imSameID = Image.fromarray(frame)
-
+        imSameID = crop_resize_img(imSameID, bbox_s)
         imSameID = imSameID.resize((512,512))
         image_array = np.array(imSameID)
         if 2 in task_ids and args.mask_path is not None:
@@ -241,7 +259,7 @@ def main(config,args):
     ref_img = cv2.warpAffine(np.array(Image.fromarray(ref_img)), warp_mat, (height, width), flags=cv2.INTER_CUBIC)
     ref_img = to_tensor(ref_img).to("cuda").to(weight_dtype)
     
-    save_image(ref_img*0.5 + 0.5,f"{save_dir}/ref_img_align.png")
+    # save_image(ref_img*0.5 + 0.5,f"{save_dir}/ref_img_align.png")
     
     ref_img =  F.interpolate(ref_img.unsqueeze(0)[:, :, 0:224, 16:240], size=[112, 112], mode='bilinear')
     _, id_feature_conv = net_arcface(ref_img) 
@@ -269,8 +287,11 @@ def main(config,args):
 
     video = (video*0.5 + 0.5).clamp(0, 1)
     video = torch.cat([video.to(device="cuda")], dim=0).cpu()
-    
-    save_videos_grid(video, f"{save_dir}/{video_name[:-4]}_{seed_input}.mp4", n_rows=1, fps=25)
+    save_videos_grid(video, f"{save_dir}/{video_name[:-4]}_{seed_input}_gen.mp4", n_rows=1, fps=25)
+
+    lq_frames = lq_frames.permute(1,0,2,3).unsqueeze(0)
+    lq_frames = (lq_frames * 0.5 + 0.5).clamp(0, 1).to(device="cuda").cpu()
+    save_videos_grid(lq_frames, f"{save_dir}/{video_name[:-4]}_{seed_input}_ori.mp4", n_rows=1, fps=25)
     
     if args.restore_frames:
         video = video.squeeze(0)
