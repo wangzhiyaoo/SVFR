@@ -72,7 +72,7 @@ def process_bbox(bbox, expand_radio, height, width):
 
         return [expand_x1,expand_y1,expand_x2,expand_y2]
 
-    def to_square(bbox_src, bbox_expend):
+    def to_square(bbox_src, bbox_expend, height, width):
 
         h = bbox_expend[3] - bbox_expend[1]
         w = bbox_expend[2] - bbox_expend[0]
