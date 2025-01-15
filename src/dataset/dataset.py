@@ -48,3 +48,71 @@ def get_affine_transform(target_face_lm5p, mean_lm5p):
     mat_warp[1][2] = mat23[3]
 
     return mat_warp
+
+def get_union_bbox(bboxes):
+    bboxes = np.array(bboxes)
+    min_x = np.min(bboxes[:, 0])
+    min_y = np.min(bboxes[:, 1])
+    max_x = np.max(bboxes[:, 2])
+    max_y = np.max(bboxes[:, 3])
+    return np.array([min_x, min_y, max_x, max_y])
+
+
+def process_bbox(bbox, expand_radio, height, width):
+    
+    def expand(bbox, ratio, height, width):
+        
+        bbox_h = bbox[3] - bbox[1]
+        bbox_w = bbox[2] - bbox[0]
+        
+        expand_x1 = max(bbox[0] - ratio * bbox_w, 0)
+        expand_y1 = max(bbox[1] - ratio * bbox_h, 0)
+        expand_x2 = min(bbox[2] + ratio * bbox_w, width)
+        expand_y2 = min(bbox[3] + ratio * bbox_h, height)
+
+        return [expand_x1,expand_y1,expand_x2,expand_y2]
+
+    def to_square(bbox_src, bbox_expend):
+
+        h = bbox_expend[3] - bbox_expend[1]
+        w = bbox_expend[2] - bbox_expend[0]
+        c_h = (bbox_expend[1] + bbox_expend[3]) / 2
+        c_w = (bbox_expend[0] + bbox_expend[2]) / 2
+
+        c = min(h, w) / 2
+
+        c_src_h = (bbox_src[1] + bbox_src[3]) / 2
+        c_src_w = (bbox_src[0] + bbox_src[2]) / 2
+
+        s_h, s_w = 0, 0
+        if w < h:
+            d = abs((h - w) / 2)
+            s_h = min(d, abs(c_src_h-c_h))
+            s_h = s_h if  c_src_h > c_h else s_h * (-1)
+        else:
+            d = abs((h - w) / 2)
+            s_w = min(d, abs(c_src_w-c_w))
+            s_w = s_w if  c_src_w > c_w else s_w * (-1)
+
+
+        c_h = (bbox_expend[1] + bbox_expend[3]) / 2 + s_h
+        c_w = (bbox_expend[0] + bbox_expend[2]) / 2 + s_w
+
+        square_x1 = c_w - c
+        square_y1 = c_h - c
+        square_x2 = c_w + c
+        square_y2 = c_h + c 
+
+        return [round(square_x1), round(square_y1), round(square_x2), round(square_y2)]
+
+
+    bbox_expend = expand(bbox, expand_radio, height=height, width=width)
+    processed_bbox = to_square(bbox, bbox_expend, height=height, width=width)
+
+    return processed_bbox
+
+
+def crop_resize_img(img, bbox):
+    x1, y1, x2, y2 = bbox
+    img = img.crop((x1, y1, x2, y2))
+    return img
