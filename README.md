@@ -170,7 +170,8 @@ python3 infer.py \
  --config config/infer.yaml \
  --task_ids 0 \
  --input_path ./assert/lq/lq1.mp4 \
- --output_dir ./results/ 
+ --output_dir ./results/
+ --crop_face_region
 ```
 
 <li>task_id:</li>
@@ -181,6 +182,10 @@ python3 infer.py \
 > 0,1 -- bfr and colorization  
 > 0,1,2 -- bfr and colorization and inpainting  
 > ...
+
+<li>crop_face_region:</li>
+
+> Add the --crop_face_region flag at the end of the command to preprocess the input video by cropping the face region. This helps focus on the facial area and enhances processing results.
 
 ### Inference with additional inpainting mask
 
@@ -194,6 +199,7 @@ python3 infer.py \
  --input_path ./assert/lq/lq3.mp4 \
  --output_dir ./results/ 
  --mask_path ./assert/mask/lq3.png
+ --crop_face_region
 ```
 
 ## License
