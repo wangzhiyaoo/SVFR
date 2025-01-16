@@ -180,29 +180,31 @@ def main(config,args):
     drive_idx_list = list(range(drive_idx_start, drive_idx_start + T * step, step))
     assert len(drive_idx_list) == T
 
-    # Crop faces from the video for further processing
-    bbox_list = []
-    frame_interval = 5
-    for frame_count, drive_idx in enumerate(drive_idx_list):
-        if frame_count % frame_interval != 0:
-            continue  
-        frame = cap[drive_idx].asnumpy()
-        _, _, bboxes_list = align_instance(frame[:,:,[2,1,0]], maxface=True)
-        if bboxes_list==[]:
-            continue
-        x1, y1, ww, hh = bboxes_list[0]
-        x2, y2 = x1 + ww, y1 + hh
-        bbox = [x1, y1, x2, y2]
-        bbox_list.append(bbox)
-    bbox = get_union_bbox(bbox_list)
-    bbox_s = process_bbox(bbox, expand_radio=0.4, height=frame.shape[0], width=frame.shape[1])
+    if args.crop_face_region:
+        # Crop faces from the video for further processing
+        bbox_list = []
+        frame_interval = 5
+        for frame_count, drive_idx in enumerate(drive_idx_list):
+            if frame_count % frame_interval != 0:
+                continue  
+            frame = cap[drive_idx].asnumpy()
+            _, _, bboxes_list = align_instance(frame[:,:,[2,1,0]], maxface=True)
+            if bboxes_list==[]:
+                continue
+            x1, y1, ww, hh = bboxes_list[0]
+            x2, y2 = x1 + ww, y1 + hh
+            bbox = [x1, y1, x2, y2]
+            bbox_list.append(bbox)
+        bbox = get_union_bbox(bbox_list)
+        bbox_s = process_bbox(bbox, expand_radio=0.4, height=frame.shape[0], width=frame.shape[1])
 
     imSameIDs = []
     vid_gt = []
     for i, drive_idx in enumerate(drive_idx_list):
         frame = cap[drive_idx].asnumpy()
         imSameID = Image.fromarray(frame)
-        imSameID = crop_resize_img(imSameID, bbox_s)
+        if args.crop_face_region:
+            imSameID = crop_resize_img(imSameID, bbox_s)
         imSameID = imSameID.resize((512,512))
         if 1 in task_ids:
             imSameID = imSameID.convert("L")  # Convert to grayscale
@@ -322,6 +324,7 @@ if __name__ == "__main__":
     parser.add_argument("--task_ids", type=parse_list, default=[0])
     parser.add_argument("--input_path", type=str, default='./assert/lq/lq3.mp4')
     parser.add_argument("--mask_path", type=str, default=None)
+    parser.add_argument("--crop_face_region", action='store_true')
     parser.add_argument("--restore_frames", action='store_true')
 
     args = parser.parse_args()
