@@ -170,7 +170,7 @@ python3 infer.py \
  --config config/infer.yaml \
  --task_ids 0 \
  --input_path ./assert/lq/lq1.mp4 \
- --output_dir ./results/
+ --output_dir ./results/ \
  --crop_face_region
 ```
 
@@ -197,8 +197,8 @@ python3 infer.py \
  --config config/infer.yaml \
  --task_ids 0,1,2 \
  --input_path ./assert/lq/lq3.mp4 \
- --output_dir ./results/ 
- --mask_path ./assert/mask/lq3.png
+ --output_dir ./results/ \
+ --mask_path ./assert/mask/lq3.png \
  --crop_face_region
 ```
 
