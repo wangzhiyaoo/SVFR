@@ -6,6 +6,7 @@
 
 [![arXiv](https://img.shields.io/badge/arXiv-2307.04725-b31b1b.svg)](https://arxiv.org/pdf/2501.01235)
 [![Project Page](https://img.shields.io/badge/Project-Website-green)](https://wangzhiyaoo.github.io/SVFR/)
+[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/fffiloni/SVFR-demo)
 
 ## 🔥 Overview
 
@@ -103,6 +104,7 @@ https://github.com/user-attachments/assets/efdac23c-0ba5-4dad-ab8c-48904af5dd89
 
 ## 🎙️ News
 
+- **[2025.01.17]**: HuggingFace demo [Hub](https://huggingface.co/spaces/fffiloni/SVFR-demo) is available now! 
 - **[2025.01.02]**: We released the initial version of the [inference code](#inference) and [models](#download-checkpoints). Stay tuned for continuous updates!
 - **[2024.12.17]**: This repo is created!
 
@@ -202,6 +204,15 @@ python3 infer.py \
  --crop_face_region
 ```
 
+## Gradio Demo
+
+A web demo is shown at [Click here](https://huggingface.co/spaces/fffiloni/SVFR-demo). You can also easily run gradio demo locally. Please install gradio by `pip install gradio`, then run
+
+```bash
+python3 demo.py
+```
+
+
 ## License
 
 The code of SVFR is released under the MIT License. There is no limitation for both academic and commercial usage.
@@ -210,7 +221,8 @@ The code of SVFR is released under the MIT License. There is no limitation for b
 
 ## Acknowledgments
 
-This work is built on the architecture of [Sonic](https://github.com/jixiaozhong/Sonic).
+- This work is built on the architecture of [Sonic](https://github.com/jixiaozhong/Sonic)🌟.
+- Thanks to community contributor [@fffiloni](https://huggingface.co/fffiloni) for supporting the online demo.
 
 
 ## BibTex
