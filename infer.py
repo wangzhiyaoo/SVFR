@@ -205,7 +205,8 @@ def main(config,args):
         imSameID = Image.fromarray(frame)
         if args.crop_face_region:
             imSameID = crop_resize_img(imSameID, bbox_s)
-        imSameID = imSameID.resize((512,512))
+        # Either not to resize or resize mask as well
+        # imSameID = imSameID.resize((512,512))
         if 1 in task_ids:
             imSameID = imSameID.convert("L")  # Convert to grayscale
             imSameID = imSameID.convert("RGB")
