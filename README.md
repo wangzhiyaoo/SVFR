@@ -168,6 +168,9 @@ Put checkpoints as follows:
 ### Inference single or multi task
 
 ```
+# Make sure the input face video has equal width and height,
+# or enable the --crop_face_region flag.
+
 python3 infer.py \
  --config config/infer.yaml \
  --task_ids 0 \
